@@ -1,22 +1,35 @@
 #!/usr/bin/python3
+'''Coding challenge.
+'''
+
 
 def minOperations(n):
-    # If n is less than or equal to 1, it's impossible to achieve, so return 0
-    if n <= 1:
+    '''Computes the fewest number of operations needed to result
+    in exactly n H characters.
+    '''
+    if not isinstance(n, int):
         return 0
-    # Initialize the number of operations needed to 0
-    operations = 0
-    # Start checking for divisors from 2 onwards
-    divisor = 2
-    # Continue the loop until n is reduced to 1
-    while n > 1:
-        # Check if the current divisor can divide n
-        while n % divisor == 0:
-            # If it can, add the divisor to the total number of operations
-            operations += divisor
-            # Divide n by the divisor to reduce it
-            n //= divisor
-        # Move to the next possible divisor
-        divisor += 1
-    # Return the total number of operations needed to reach n
-    return operations
+    ops_count = 0
+    clipboard = 0
+    done = 1
+    # print('H', end='')
+    while done < n:
+        if clipboard == 0:
+            # init (the first copy all and paste)
+            clipboard = done
+            done += clipboard
+            ops_count += 2
+            # print('-(11)->{}'.format('H' * done), end='')
+        elif n - done > 0 and (n - done) % done == 0:
+            # copy all and paste
+            clipboard = done
+            done += clipboard
+            ops_count += 2
+            # print('-(11)->{}'.format('H' * done), end='')
+        elif clipboard > 0:
+            # paste
+            done += clipboard
+            ops_count += 1
+            # print('-(01)->{}'.format('H' * done), end='')
+    # print('')
+    return ops_count
