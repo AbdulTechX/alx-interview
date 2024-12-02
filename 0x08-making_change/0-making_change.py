@@ -2,7 +2,8 @@
 
 """ Contains Makechange function"""
 
-def makeChange (coins, total):
+
+def makeChange(coins, total):
     """
     Returns: fewest number of coins needed to meet total
         If total is 0 or less, return 0
@@ -19,7 +20,5 @@ def makeChange (coins, total):
             total -= coin
             change += 1
         if (total == 0):
-           return change
-
+            return change
     return -1
-
